@@ -2,8 +2,6 @@ require 'selenium-webdriver'
 require_relative 'demo_base_test'
 require_relative 'demo_element_wait'
 
-# TODO: Need to do webdriver wait stuff here
-
 # Implements all of the same methods as a webdriver element, except uses lazy initialization,
 # and is an array of elements which by default will operate on the first element in the array.
 class DemoElement
@@ -11,10 +9,12 @@ class DemoElement
   include Enumerable
   @element_timeout
 
+  # Get or set the timeout value for a specific element, otherwise it uses the default element timeout
   def element_timeout
     @element_timeout ||= DemoElementWait.default_element_timeout
   end
 
+  # A collection of all matching elements as selenium Element instances
   @selenium_elements = nil
 
   # Optionally provide a parent when initializing the element.
@@ -26,7 +26,7 @@ class DemoElement
 
   # This class can be treated like either an array of elements or a single element.
   # Getting back an element within an array with elements[3] will return an instance of itself,
-  # with the default element index to operate on is set to the provided index.
+  # with the default element index to operate on set to the provided index.
   def each(&block)
     @selenium_elements.each_index do |index|
       @index = index
@@ -34,35 +34,57 @@ class DemoElement
     end
   end
 
-  # Lazily initialize the element, if it has been initialized, but throws a stale element exception, get a new instance
+  # Lazily initialize the element
   def get_selenium_elements
+    # if the selenium_elements hasn't been initialized, or has 0 elements, try to get the elements again.
     ret_val = @selenium_elements.nil? || @selenium_elements.size <= 0 ? get_elements : @selenium_elements
     ret_val
-  end
-
-  def set_selenium_elements (parent, locator)
-    @selenium_elements = parent.find_elements(locator)
-    return @selenium_elements.size > 0
   end
 
   # Gets elements matching the css locator and optionally parent
   def get_elements
     if @parent.nil?
       DemoElementWait.wait_for(element_timeout) { set_selenium_elements(DemoBaseTest.driver, { :css => @locator }) }
-    elsif @parent.get_selenium_elements.size < 1
-      raise "parent element for element #{self.to_s} does not exist"
     else
-      DemoElementWait.wait_for(element_timeout) { set_selenium_elements(@parent.get_selenium_elements[@index], { :css => @locator }) }
+      begin
+        DemoElementWait.wait_for(element_timeout) { set_selenium_elements(@parent.get_selenium_elements[@index], { :css => @locator }) }
+      rescue Selenium::WebDriver::Error::StaleElementReferenceError
+        @parent.get_selenium_elements
+        DemoElementWait.wait_for(element_timeout) { set_selenium_elements(@parent.get_selenium_elements[@index], { :css => @locator }) }
+      end
+    end
+    if !@parent.nil? && @parent.get_selenium_elements.size < 1
+      raise "parent element for element #{self.to_s} does not exist"
     end
     @selenium_elements
   end
 
+  # Make get_elements private
   private :get_elements
 
+  # sets @selenium_elements to current list of elements matching locator and parent.
+  def set_selenium_elements (parent, locator)
+    @selenium_elements = parent.find_elements(locator)
+    return @selenium_elements.size > 0
+  end
+
+  # Override to_s so you see a nice string representing the element while debugging
   def to_s
     ret_val = "locator '#{@locator}'"
     ret_val += ", parent = '#{@parent.to_s}'" if !@parent.nil?
     ret_val
+  end
+
+  # ------------------------------------- Existing Selenium Methods Below -------------------------------------
+
+  #Finds an array of elements
+  def find_element(css_locator)
+    find_elements(css_locator)
+  end
+
+  #finds an array of elements with this element as the parent
+  def find_elements(css_locator)
+    DemoElement.new(css_locator, self)
   end
 
   #
@@ -261,13 +283,6 @@ class DemoElement
     get_selenium_elements[@index].size
   end
 
-  def find_element(css_locator)
-    find_elements(css_locator)
-  end
-
-  def find_elements(css_locator)
-    DemoElement.new(css_locator, self)
-  end
 
   #-------------------------------- sugar  --------------------------------
 

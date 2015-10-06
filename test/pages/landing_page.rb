@@ -1,5 +1,6 @@
 require_relative 'base_page'
 
+# The landing page page object.
 class LandingPage < BasePage
   def initialize
     @logout_form = DemoElement.new '#logout-form'
@@ -11,12 +12,18 @@ class LandingPage < BasePage
     super
   end
 
+  # Various methods for getting different types of failures with different stack traces.
   def raises_exception
     raise "I'm just doing what I'm told and raising an exception."
   end
 
-  def eventually_raises_exception
-    do_something
+  # Make it so that the stack can skip some frames.
+  def eventually_raises_exception something_else
+    if something_else
+      do_something_else
+    else
+      do_something
+    end
   end
 
   def do_something

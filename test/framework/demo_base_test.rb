@@ -32,14 +32,14 @@ def before_run
 end
 
 before_run
+# This is primarily for logging and creating, then destroying the selenium driver object.
 class DemoBaseTest < Minitest::Test
-
-  # # TODO: Include logic to use desired capabilities for different browsers here
-  # # Static, lazy loaded instance of driver
+  # Static, lazy loaded instance of driver
   def self.driver
     @@driver ||= DemoDriver.new.driver
   end
 
+  # Change the log file name to the name of the currently executing test.
   def before_setup
     DemoLogger.set_log_file self.location + '.log'
     DemoLogger.log.info("----------------------- Minitest - starting setup for test '#{self.location}' -----------------------")
@@ -52,18 +52,25 @@ class DemoBaseTest < Minitest::Test
 
   def before_teardown
     DemoLogger.log.info("----------------------- Minitest - finished test '#{self.location}' -----------------------")
+
+    # If the test did not pass, take a screenshot and log that it failed.
     if !self.passed?
       path = File.realpath(DemoLogger.log_directory) + "/#{self.location}.png"
       DemoBaseTest.driver.save_screenshot(path)
       DemoLogger.log.info("----------------------- Minitest - test '#{self.location}' failed! -----------------------\n     -Screenshot at #{path}")
     end
+
+    # Log the location of the log files (so if you're in console it is easy to find)
     DemoLogger.log.info(" Logs available at #{File.realpath(DemoLogger.log_directory)}")
     DemoLogger.log.info("----------------------- Minitest - starting teardown for test '#{self.location}' -----------------------")
   end
 
   def after_teardown
     DemoLogger.log.info("----------------------- Minitest - finished teardown for test '#{self.location}' -----------------------")
-    DemoLogger.set_log_file DemoLogger.default_log_file
+    # Reset the log file back to the default.
+    DemoLogger.set_log_file nil
+
+    # Destroy driver after each run so that it can work with remote browsers, and to ensure a clean environment for new tests.
     @@driver.quit
     @@driver = nil
   end

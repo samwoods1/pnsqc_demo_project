@@ -58,6 +58,7 @@ module DemoLogParser
     compare_traces stack_traces
   end
 
+  # Compares the lists of stack traces to group all failures with unique stack traces
   def self.compare_traces (stack_traces)
     puts("\n----------------------------------------- Top Stack Info ---------------------------------------\n" +
              "-Total failed tests due to unhandled exception: #{stack_traces.size}")
