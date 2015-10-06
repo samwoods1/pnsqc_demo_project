@@ -1,7 +1,7 @@
 require 'logger'
 
 class DemoLogger
-  @@default_log_file = 'demo_automation_log'
+  @@default_log_file = 'demo_automation.log'
 
   @@log
   @@log_directory

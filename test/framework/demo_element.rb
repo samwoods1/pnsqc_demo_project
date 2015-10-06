@@ -7,7 +7,7 @@ require_relative 'demo_element_wait'
 # Implements all of the same methods as a webdriver element, except uses lazy initialization,
 # and is an array of elements which by default will operate on the first element in the array.
 class DemoElement
-  attr_accessor :selenium_elements
+  attr_accessor :selenium_elements, :element_timeout
   include Enumerable
   @element_timeout
 

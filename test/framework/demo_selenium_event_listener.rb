@@ -10,10 +10,6 @@ class DemoSeleniumEventListener < Selenium::WebDriver::Support::AbstractEventLis
     DemoLogger.log.info("Selenium - Finding element by #{by}, locator: #{what}")
   end
 
-  def after_find(by, what, driver)
-    DemoLogger.log.info("Selenium - Successfully found element by #{by}, locator: #{what}")
-  end
-
   def before_click(element, driver)
     element_identifier = "'"
     element_identifier += " Tag: #{element.tag_name},"

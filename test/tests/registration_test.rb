@@ -3,6 +3,19 @@ require_relative 'base_test'
 
 class LoginTest < BaseTest
 
+  # Called before every test method runs. Can be used
+  # to set up fixture information.
+  def setup
+    super
+
+  end
+
+  # Called after every test method runs. Can be used to tear
+  # down fixture information.
+  def teardown
+    super
+  end
+
   def test_login_succeeds
     AllPages.login_page.log_in(true, false)
     assert(AllPages.landing_page.page_loaded? true)
