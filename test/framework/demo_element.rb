@@ -75,6 +75,12 @@ class DemoElement
     ret_val
   end
 
+  def select_option(option_text)
+    get_selenium_elements[@index]
+    drop_down = Selenium::WebDriver::Support::Select.new @selenium_elements[@index]
+    drop_down.select_by(:text, option_text)
+  end
+
   # ------------------------------------- Existing Selenium Methods Below -------------------------------------
 
   #Finds an array of elements

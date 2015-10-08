@@ -1,7 +1,10 @@
 require '../framework/demo_logger'
 require_relative 'base_test'
+require_relative '../utilities/web_request_helpers'
 
 class LoginTest < BaseTest
+
+  # Since these are tests for logging in, there isn't any additional stuff we need to do in setup or teardown methods.
 
   def test_login_succeeds
     AllPages.login_page.log_in(validate_success: false)
@@ -46,4 +49,5 @@ class LoginTest < BaseTest
     AllPages.landing_page.page_loaded?
     AllPages.landing_page.eventually_raises_exception(false)
   end
+
 end
