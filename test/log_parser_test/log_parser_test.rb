@@ -5,6 +5,6 @@ class MyTest < Minitest::Test
 
   # Simple test to test parsing the log files to determine unique top stacks.
   def test_parse_log
-    DemoLogParser.parse('/Users/samwoods/RubymineProjects/pnsqc_demo/test/tests/logs/10_06_2015_09_16_16/', '/tests/')
+    DemoLogParser.parse('/Users/samwoods/puppet_repos/pnsqc_demo_project/test/tests/logs/10_07_2015_20_09_16/', '/tests/')
   end
 end
