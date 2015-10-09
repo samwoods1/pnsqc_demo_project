@@ -27,14 +27,15 @@ class RegistrationTest < BaseTest
     assert(AllPages.registration_page.validate_registration_success, 'The success page was not displayed after registration')
   end
 
+  # Validating that we can register via requests directly to the web server
   def test_service_registration_succeeds
     user = User.new randomize: true
-    # Submit, but don't validate success, so we can assert below
     @web_request_helper.service_register_user user
 
     AllPages.login_page.visit(false)
 
     assert(AllPages.landing_page.page_loaded?(false), 'The user was not successfully registered or could not log in.')
   end
+
 
 end

@@ -1,5 +1,6 @@
 require_relative '../framework/demo_base_test'
 require_relative '../pages/all_pages'
+require_relative '../utilities/web_request_helpers'
 
 class BaseTest < DemoBaseTest
   #include AllPages
