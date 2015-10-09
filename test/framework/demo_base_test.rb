@@ -21,11 +21,11 @@ module Minitest
       if !e.message.include? "SKIPPING TEST - "
         DemoLogger.log.error "Assertion failed '#{e.message}'"
         e.backtrace.each { |line| DemoLogger.log.error line }
-        self.failures << e
       else
         # Still want to log the message so we know the test was skipped.
         DemoLogger.log.error e.message
       end
+      self.failures << e
     rescue Exception => e
       DemoLogger.log.error "Unhandled exception occurred '#{e.message}'"
       e.backtrace.each { |line| DemoLogger.log.error line }
