@@ -19,8 +19,9 @@ Some of the things this project demonstrates are:
  - Using inheritance to minimize duplicated code in tests and pages
  - Use of direct http requests to generate data required for tests (like creating a user)
  - Stack trace analysis to bucket failures into similar or same root causes
-
-Some of the things I am hoping to add soon are:
  - Integrating unit testing framework with defect tracking for known issues
+
+The last thing I hope to add before PNSQC on Monday is:
+
  - Creating dependencies on test results, so for example you could know that if login test fails, all 
    tests depending on login would also fail and should be treated as unknown results, not failed results.
