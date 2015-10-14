@@ -1,5 +1,5 @@
 # pnsqc_demo_project
-Ruby Selenium based UI automation project for PNSQC demo.
+Ruby Selenium based UI automation project for my PNSQC presentation 'Obtaining True UI Automation Speed' http://www.pnsqc.org/obtaining-true-ui-automation-speed/.
 
 This project is set up to demonstrate some UI automation strategies that I have found to be useful.  
 It is built with Ruby on top of Selenium Webdriver.  Everything under the framework directory is a 
