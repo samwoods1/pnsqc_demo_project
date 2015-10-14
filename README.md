@@ -49,7 +49,7 @@ Some specific features that were implemented as part of the framework that I hav
  - Processes annotations
  - Takes screenshot on failure
  - Starts and stops Selenium Webdriver driver
-- Very basic helper to create and execute direct web requests
+- Very basic helper to create and execute direct web requests 
 
 One last thing I will implement soon that didn't make it into my PNSQC presentation:
 
