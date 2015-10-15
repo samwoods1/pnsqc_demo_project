@@ -43,6 +43,7 @@ Some specific features that were implemented as part of the framework that I hav
   - Specify required elements and validate that the page has loaded with all of the specified required elements visible.
   - Specify a timeout value for pages (defaults to 30 seconds)
   - Automatically waits for jquery processing to finish (if your site uses jquery) before interacting with elements.
+
 - A base test class that
  - Sets up logging
  - Logs
