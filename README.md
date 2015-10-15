@@ -13,7 +13,7 @@ Some of the things this project demonstrates are:
   - Types of helper methods - Methods that perform some user action and methods that validate something.
   - Modeling application data (user.rb)
   - Useful options for helper functions (submit?, validate?) to avoid calling multiple helper functions for submitting and validating
-  - Exceptions vs Assertions and why it matters, including why it is a good idea to have on assertion or block of assertions at the end of a test and not sprinkled all throughout the test.
+  - Exceptions vs Assertions and why it matters, including why it is a good idea to have one assertion or block of assertions at the end of a test and not sprinkled all throughout the test.
   - A pattern for testing negative tests (expected failures)
  - Using setup and teardown methods
  - Using inheritance to minimize duplicated code in tests and pages (base page and base test class)
@@ -43,7 +43,6 @@ Some specific features that were implemented as part of the framework that I hav
   - Specify required elements and validate that the page has loaded with all of the specified required elements visible.
   - Specify a timeout value for pages (defaults to 30 seconds)
   - Automatically waits for jquery processing to finish (if your site uses jquery) before interacting with elements.
-
 - A base test class that
  - Sets up logging
  - Logs
