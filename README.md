@@ -36,20 +36,20 @@ Some specific features that were implemented as part of the framework that I hav
   - my_links = DemoElement.new('.link'); my_links[3].click # matches more than one element
  - Stack trace analysis to bucket failures into similar or same root causes
   - For example, you run 50 tests, have 10 failures but it finds only 3 unique top stack traces.  You can then fix the first failed test in each bucket, then re-run tests to ensure you fixed all of the problems, avoiding needing to triage and investigate the other 7 non unique failures
- - Integration of unit testing framework (minitest) with defect tracking (jira) for known issues with the _known_issue annotation
+ - Integration of unit testing framework (minitest) with defect tracking (jira) for known issues with the known_issue annotation
   - This allows you to mark a failing test as a known issue tied to a specific ticket (defect or story) which will then be skipped, until the associated ticket is resolved, where it will then start executing again.
  - A base page class that allows you to 
   - Specify a URL and navigate to the page
   - Specify required elements and validate that the page has loaded with all of the specified required elements visible.
   - Specify a timeout value for pages (defaults to 30 seconds)
   - Automatically waits for jquery processing to finish (if your site uses jquery) before interacting with elements.
-- A base test class that
- - Sets up logging
- - Logs
- - Processes annotations
- - Takes screenshot on failure
- - Starts and stops Selenium Webdriver driver
-- Very basic helper to create and execute direct web requests 
+ - A base test class that
+  - Sets up logging
+  - Logs
+  - Processes annotations
+  - Takes screenshot on failure
+  - Starts and stops Selenium Webdriver driver
+ - Very basic helper to create and execute direct web requests 
 
 One last thing I will implement soon that didn't make it into my PNSQC presentation:
 
